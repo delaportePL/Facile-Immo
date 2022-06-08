@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offres masquées{% endblock %}
+
+{% block content %}
+<div class="container-flex">
+	<h1>Offres masquées</h1>
+	{% for offer in offresMasquees %}
+        {% include('_parts/offer.html.twig') %}
+    {% endfor %}
+</div>
+
+{% endblock %}

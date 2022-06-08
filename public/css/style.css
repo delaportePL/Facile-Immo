@@ -1,0 +1,110 @@
+:root {
+    --main-color-blue: #174054;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+}
+body{
+    color: #202020;
+}
+
+nav{
+    height: 84px; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.15);
+    background: #fff;
+}
+nav>div{
+    display: flex;
+}
+nav>.nav-left{
+    margin: 0 8%;
+    padding: 4px;
+    transition: all .3s ease-in-out;
+}
+nav>.nav-left>img{
+    width: 65px;
+    height: 65px;
+}
+nav>.nav-left:hover{
+    transform: scale(1.1);
+    animation: ease;
+    cursor: pointer;
+}
+nav>.nav-center>a{
+    margin: 0;
+    padding: 22px;
+    text-transform: uppercase;
+}
+nav>.nav-center>a:hover{
+    background-color: #F5F5F5;
+}
+nav>div>a{
+    font-weight: bold;
+    text-decoration: none;
+    color: #404040;
+}
+nav>div>a:hover{
+    color: var(--main-color-blue);
+}
+
+.container{
+    max-width: 1280px;
+    margin: 20px;
+}
+
+.container-flex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.offre{
+	display: flex;
+    background: #fff;
+    margin: 10px;
+    border: 3px solid var(--main-color-blue);
+    border-radius: 25px;
+    color: inherit;
+    text-decoration: none;
+}
+.offre>.image{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.offre>.image>img{
+    width: 360px;
+    height: 220px;
+    border-radius: 20px 0 0 20px;
+    object-fit: cover;
+}
+.offre>.informations{
+	margin: 10px 20px;
+}
+.offre>.informations>.prix{
+    margin-bottom: 10px;
+}
+
+.container-flex.detail{
+    margin: 0 45px;
+}
+.offreDetail>.image{
+    position: relative;
+}
+.offreDetail>.image>span{
+    position: absolute;
+}
+.offreDetail>.informations{
+    margin: 20px 0;
+}
+
+
+.container-flex.profile{
+    flex-direction: column;
+}

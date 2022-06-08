@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+
+<div class="container-flex profile">
+    <div class="profile left-menu">
+        <a href="{{ path('profil.offre.masquee') }}">Offres masquées</a>
+    </div>
+    <h1>Profil</h1>
+
+    <p>Email : {{ user.email }}</p>
+    <p>Nom : {{ user.nom }}</p>
+    <p>Prénom : {{ user.prenom }}</p>
+    <p>Téléphone : {{ user.telephone }}</p>
+    
+    <h2>Offres aimées</h2>
+    <div>
+    {% for offer in offresAimees %}
+        {% include('_parts/offer.html.twig') %}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
