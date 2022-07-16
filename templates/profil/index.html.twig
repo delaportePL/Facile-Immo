@@ -3,23 +3,42 @@
 {% block title %}Profil{% endblock %}
 
 {% block content %}
-
-<div class="container-flex profile">
-    <div class="profile left-menu">
-        <a href="{{ path('profil.offre.masquee') }}">Offres masquées</a>
+<div class="container-flex interet">
+    <div class="left-menu interet">
+        <div>
+            <img src="{{ asset('img/profile-user.svg') }}" alt="Image de profil">
+            <h2>Vos informations</h2>
+        </div>
+        <p>Email : <b>{{ user.email }}</b></p>
+        <p>Nom : <b>{{ user.nom }}</b></p>
+        <p>Prénom : <b>{{ user.prenom }}</b></p>
+        <p>Téléphone : <b>{{ user.telephone }}</b></p>
+        
+        <div class="liens interet">
+            <a href="#">Modifier vos informations</a>
+            <a href="{{ path('profil.offre.masquee') }}">Vos offres masquées</a>
+        </div>
     </div>
-    <h1>Profil</h1>
-
-    <p>Email : {{ user.email }}</p>
-    <p>Nom : {{ user.nom }}</p>
-    <p>Prénom : {{ user.prenom }}</p>
-    <p>Téléphone : {{ user.telephone }}</p>
-    
-    <h2>Offres aimées</h2>
+    <hr>
+    <div class="right-menu interet">
     <div>
-    {% for offer in offresAimees %}
-        {% include('_parts/offer.html.twig') %}
+        <h2>Vos offres aimées</h2>
+    </div>
+    {% for offre in likedOffers %}
+        <div class="offre-container interet">
+            <a class="offre interet" href="{{ path('offre.detail', { 'id': offre.id }) }}">
+                {% include('_parts/offre-profil.html.twig') %}
+            </a>
+            {% if app.user %}
+            <div class="likes-container interet">
+                {% include "_parts/delete-likes.html.twig" %}
+            </div>
+            {% endif %}
+        </div>
     {% endfor %}
     </div>
+    
 </div>
 {% endblock %}
+
+

@@ -21,7 +21,7 @@ security:
             entry_point: App\Security\AuthenticationEntryPoint
             logout:
                 path: logout
-                target: offre.liste
+                target: home
         secured_area:
             form_login:
                 enable_csrf: true

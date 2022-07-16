@@ -1,0 +1,17 @@
+{% if app.user %}
+	{% if offre.isLikedByUser(app.user) %}
+		<a href="{{ path('offre.like', {'id': offre.id }) }}" class="js-like">
+			<i class="fa-solid fa-heart"></i>
+			<span>Ne plus aimer cette offre</span>
+		</a>
+	{% else %}
+		<a href="{{ path('offre.like', {'id': offre.id }) }}" class="js-like">
+			<i class="fa-regular fa-heart"></i>
+			<span>Aimer cette offre</span>
+		</a>
+	{% endif %}
+	<a href="{{ path('offre.dislike', {'id': offre.id }) }}" class="js-dislike">
+		<i class="fa-solid fa-xmark"></i>
+		<span>Masquer cette offre</span>
+	</a>
+{% endif %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('leaflet/leaflet.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<div class="container-flex offre">
+    {% include "_parts/filtres.html.twig" %}
+    <div id="map"></div>
+    
+    {% for offre in pagination %}
+        {% if app.user and offre.isDislikedByUser(app.user) %}
+        {% else %}
+            <div class="offre-container">
+                <a class="offre" href="{{ path('offre.detail', {'id' : offre.id }) }}">
+                    {% include "_parts/offre.html.twig" %}
+                </a>
+                {% if app.user %}
+                <div class="likes-container">
+                    {% include "_parts/likes-buttons.html.twig" %}
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div>
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let offers = {{ offers|raw }};
+    </script>
+    <script src="{{ asset('leaflet/leaflet.js') }}"></script>
+    <script src="{{ asset('js/map.js') }}"></script>
+{% endblock %}

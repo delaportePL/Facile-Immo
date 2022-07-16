@@ -1,0 +1,16 @@
+
+<div class="image">
+	<img src="{{ asset('img/bien-immobilier/01.jpg') }}" alt="Photographie du logement">
+</div>
+<div class="informations">    
+	<div class="prix">
+		<p>{{offre.prix|number_format(0, '', ' ')}} €</p>
+	</div>
+	<p>{{offre.type|capitalize}}</p>
+	{% if offre.etageTotal > 0 %}
+		<p>Étage {{offre.etage}}/{{offre.etageTotal}}</p>
+	{% else %}
+		<p>{{offre.etage}} étage{{offre.etage > 1 ? 's' : ''}}</p>
+	{% endif %}
+	<p>Superficie : {{offre.superficie}}m²</p>
+</div>

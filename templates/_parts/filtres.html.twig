@@ -1,0 +1,30 @@
+{{ form_start(form, { 'attr' : { 'class': 'search-form' } }) }}
+
+	<div class="search-inputs localisation">
+		<div>{{ form_widget(form.localisation) }}</div>
+	</div>
+
+	<div class="search-inputs price">
+		<div>{{ form_widget(form.prixMin) }}</div>
+		<div>{{ form_widget(form.prixMax) }}</div>
+	</div>
+
+	<div class="search-inputs superficie">
+		<div>{{ form_widget(form.superficieMin) }}</div>
+		<div>{{ form_widget(form.superficieMax) }}</div>
+	</div>
+	
+	<div class="search-type">
+	{% for form in form.type.children %}
+		<div>
+			{{ form_widget(form) }}
+			{{ form_label(form) }}
+		</div>
+	{% endfor %}
+	</div>
+
+	<div class="search-button">
+		<input type="submit" value="Rechercher">
+	</div>
+
+{{ form_end(form) }}

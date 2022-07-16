@@ -8,13 +8,26 @@
         {% block stylesheets %}{% endblock %}
 
         <script src="{{ asset('js/main.js') }}"></script>
-        {% block javascripts %}{% endblock %}
+        <script src="https://kit.fontawesome.com/4549f0d59d.js" crossorigin="anonymous"></script>
 
     </head>
     <body>
         {% include('_parts/navbar.html.twig') %}
+
         <div class="container">
             {% block content %}{% endblock %}
         </div>
+
+        {% block javascripts %}{% endblock %}
+        <script src="{{ asset('js/like-offre.js') }}"></script>
+        <script src="{{ asset('js/dislike-offre.js') }}"></script>
+        
+        <footer>
+            <ul>
+                <li><a href="">Accueil</a></li>
+                <li><a href="">Comment acheter ?</a></li>
+            </ul>
+        </footer>
     </body>
+
 </html>

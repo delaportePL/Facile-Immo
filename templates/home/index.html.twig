@@ -3,15 +3,25 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <h1>Annonces</h1>
-        <div class="container-flex">
-        {% for offre in offres %}
-            {% include('_parts/offre.html.twig') %}
-        {% endfor %}
-        
-        </div>
-    </div>
+<form class="search-form" action="">
+	<div class="search-inputs">
+		<input type="text" placeholder="Ville recherchée">
+		<input type="text" placeholder="Budget max">
+	</div>
+	<div class="search-type">
+		<div>
+			<input type="checkbox" name="appartement" checked>
+			<label for="appartement">Appartement</label>
+		</div>
+		<div>
+			<input type="checkbox" name="maison" checked>
+			<label for="maison">Maison</label>
+		</div>
+	</div>
+	<div class="search-button">
+		<input type="submit" value="Rechercher">
+	</div>
+	
+</form>
 
 {% endblock %}

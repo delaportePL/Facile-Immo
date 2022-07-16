@@ -19,36 +19,41 @@ class ProfilController extends AbstractController
         $this->offreRepository = $offreRepository;
     }
 
-
+    /* Récupère l'utilisateur connecté puis ses likes puis les offres liées à ce like, qu'il envoie dans un tableau likedOffers */
     #[Route('/profil', name: 'profil')]
     public function profil(): Response
     {
         /**
-         * @var Security
+         * @var User
          */
         $user = $this->getUser();
-        $userId = $user->getId();
-        $offresAimees = $this->offreRepository->findLikedOffresByUserIdAndType($userId, 1);
-
+        $likedOffers = [];
+        foreach($user->getOffreLikes() as $offre){
+            array_push($likedOffers, $offre->getOffre());
+        }
+        
         return $this->render('profil/index.html.twig', [
             'user' => $user,
-            'offresAimees' => $offresAimees,
+            'likedOffers' => $likedOffers,
         ]);
     }
 
-    #[Route('/profil/offre-masquee', name: 'profil.offre.masquee')]
+    /* Récupère l'utilisateur connecté, puis ses dislikes, puis les offres liées à ce dislike, qu'il envoie dans un tableau dislikedOffers */
+    #[Route('/profil/offres-masquees', name: 'profil.offre.masquee')]
     public function offreMasquee(): Response
     {
         /**
-        * @var Security
-        */
+         * @var User
+         */
         $user = $this->getUser();
-        $userId = $user->getId();
-        $offresMasquees = $this->offreRepository->findLikedOffresByUserIdAndType($userId, 0);
+        $dislikedOffers = [];
+        foreach($user->getOffreDislikes() as $offre){
+            array_push($dislikedOffers, $offre->getOffre());
+        }
 
         return $this->render('profil/offre-masquee.html.twig', [
             'user' => $user,
-            'offresMasquees' => $offresMasquees
+            'dislikedOffers' => $dislikedOffers
         ]);
     }
 }

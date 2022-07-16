@@ -38,12 +38,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 30)]
     private $telephone;
 
-    #[ORM\OneToMany(mappedBy: 'User', targetEntity: LikedOffre::class, orphanRemoval: true)]
-    private $LikedOffre;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OffreLike::class, orphanRemoval: true)]
+    private $offreLikes;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: OffreDislike::class, orphanRemoval: true)]
+    private $offreDislikes;
 
     public function __construct()
     {
-        $this->LikedOffre = new ArrayCollection();
+        $this->offreLikes = new ArrayCollection();
+        $this->offreDislikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,32 +157,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, LikedOffre>
+     * @return Collection<int, OffreLike>
      */
-    public function getLikedOffre(): Collection
+    public function getOffreLikes(): Collection
     {
-        return $this->LikedOffre;
+        return $this->offreLikes;
     }
 
-    public function addLikedOffre(LikedOffre $likedOffre): self
+    public function addOffreLike(OffreLike $offreLike): self
     {
-        if (!$this->LikedOffre->contains($likedOffre)) {
-            $this->LikedOffre[] = $likedOffre;
-            $likedOffre->setUser($this);
+        if (!$this->offreLikes->contains($offreLike)) {
+            $this->offreLikes[] = $offreLike;
+            $offreLike->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeLikedOffre(LikedOffre $likedOffre): self
+    public function removeOffreLike(OffreLike $offreLike): self
     {
-        if ($this->LikedOffre->removeElement($likedOffre)) {
+        if ($this->offreLikes->removeElement($offreLike)) {
             // set the owning side to null (unless already changed)
-            if ($likedOffre->getUser() === $this) {
-                $likedOffre->setUser(null);
+            if ($offreLike->getUser() === $this) {
+                $offreLike->setUser(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, OffreDislike>
+     */
+    public function getOffreDislikes(): Collection
+    {
+        return $this->offreDislikes;
+    }
+
+    public function addOffreDislike(OffreDislike $offreDislike): self
+    {
+        if (!$this->offreDislikes->contains($offreDislike)) {
+            $this->offreDislikes[] = $offreDislike;
+            $offreDislike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffreDislike(OffreDislike $offreDislike): self
+    {
+        if ($this->offreDislikes->removeElement($offreDislike)) {
+            // set the owning side to null (unless already changed)
+            if ($offreDislike->getUser() === $this) {
+                $offreDislike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

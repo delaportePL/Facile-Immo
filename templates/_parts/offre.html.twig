@@ -1,29 +1,20 @@
-<a class="offre" href="offre-{{ offre.id }}">
-	<div class="image">
-		<img src="https://via.placeholder.com/320x220?text=Photographie du logement" alt="Photographie du logement">
+<div class="image">
+	<img src="{{ asset('img/bien-immobilier/01.jpg') }}" alt="Photographie du logement">
+</div>
+<div class="informations">    
+	<div class="prix">
+		<p>{{offre.prix|number_format(0, '', ' ')}} €</p>
 	</div>
-	<div class="informations">    
-		<div class="prix">
-			<h2>{{offre.prix|number_format(0, '', ' ')}} €</h2>
-		</div>
-		
-		<p>{{offre.type|capitalize}}</p>
-		{% if offre.etage_total > 0 %}
-			<p>Étage {{offre.etage}}/{{offre.etage_total}}</p>
-		{% else %}
-			<p>{{offre.etage}} étage{{offre.etage > 1 ? 's' : ''}}</p>
+	<p>{{offre.type|capitalize}}</p>
+	{% if offre.etageTotal > 0 %}
+		<p>Étage {{offre.etage}}/{{offre.etageTotal}}</p>
+	{% else %}
+		<p>{{offre.etage}} étage{{offre.etage > 1 ? 's' : ''}}</p>
+	{% endif %}
+	<div class="superficie">
+		<p>Superficie : {{offre.superficie}}m²</p>
+		{% if offre.terrain > 0 %}
+			<p>Terrain : {{offre.terrain}}m²</p>
 		{% endif %}
-		<p>
-			{{offre.piece}} pièce{{offre.piece > 1 ? 's' :''}}, 
-			{{offre.chambre}} chambre{{offre.chambre > 1 ? 's' :''}} 
-		</p>
-		<div class="superficie">
-			<p>Superficie : {{offre.superficie}}m²</p>
-			{% if offre.terrain > 0 %}
-				<p>Terrain : {{offre.terrain}}m²</p>
-			{% endif %}
-		</div>
-		
-		
 	</div>
-</a>
+</div>

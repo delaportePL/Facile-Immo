@@ -1,110 +1,486 @@
 :root {
     --main-color-blue: #174054;
+    --main-color-blue-light: #1f5a77;
+	--main-color-gray: #A5BECC;
+    --card-border-radius: 20px;
+    --card-box-shadow: 0px 4px 20px rgba(0, 0, 0, .5);
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
 
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial;
+	border: 0;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
 }
 body{
-    color: #202020;
+    color: #333;
+    background: #ddd;
 }
 
+/* NAVBAR */
 nav{
-    height: 84px; 
-    display: flex; 
-    flex-direction: row; 
-    align-items: center;
-    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.15);
+    display: flex;
+    box-shadow: 0 5px 8px 2px rgba(0, 0, 0, .35);
     background: #fff;
 }
 nav>div{
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 82px; 
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+}
+nav>div>div{
     display: flex;
 }
-nav>.nav-left{
-    margin: 0 8%;
-    padding: 4px;
-    transition: all .3s ease-in-out;
+.nav-left{
+    padding: 8px 20px;
+    margin-right: 30px;
+    transition: transform .2s linear;
 }
-nav>.nav-left>img{
+.nav-left a,.nav-left img{
     width: 65px;
     height: 65px;
 }
-nav>.nav-left:hover{
-    transform: scale(1.1);
-    animation: ease;
+.nav-left:hover{
+    transform: scale(1.08);
     cursor: pointer;
 }
-nav>.nav-center>a{
+.nav-center{
+    width: 100%;
+    max-width: 814px;
+}
+.nav-center>a{
     margin: 0;
     padding: 22px;
-    text-transform: uppercase;
 }
-nav>.nav-center>a:hover{
-    background-color: #F5F5F5;
+.nav-right>a{
+    padding: 22px 8px;
 }
-nav>div>a{
-    font-weight: bold;
+.nav-center>a,.nav-right>a{
+    font-size: 20px;
+    font-weight: 700;
     text-decoration: none;
-    color: #404040;
+    color: #333;
+    transition: transform .2s linear;
 }
-nav>div>a:hover{
-    color: var(--main-color-blue);
+.nav-center>a:hover,.nav-right>a:hover{
+    color: var(--main-color-blue-light);
+    transform: scale(1.06);
 }
+
+/* FOOTER*/
+footer{
+    width: 100%;
+    height: 80px;
+    background: #fff;
+    box-shadow: 0 5px 8px 2px rgb(0 0 0 / 35%);
+}
+footer ul{
+
+}
+
+
+
 
 .container{
     max-width: 1280px;
-    margin: 20px;
+    margin: 20px auto 75px;
 }
-
 .container-flex{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: 10px;
 }
-.offre{
-	display: flex;
+
+
+/* Offre */
+.container-flex.offre{
+    flex-direction: column;
+}
+.offre-container{
+    width: 100%;
+    max-width: 770px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 20px;
     background: #fff;
-    margin: 10px;
-    border: 3px solid var(--main-color-blue);
-    border-radius: 25px;
+    box-shadow: var(--card-box-shadow);
+}
+.offre, .offre-detail{
+	display: flex;
+    width: 100%;
     color: inherit;
     text-decoration: none;
+    align-items: center;
 }
 .offre>.image{
     display: flex;
     align-items: center;
-    padding: 5px;
 }
 .offre>.image>img{
     width: 360px;
     height: 220px;
-    border-radius: 20px 0 0 20px;
+    border-radius: 15px 0 0 15px;
     object-fit: cover;
+    background: #bbb;
 }
 .offre>.informations{
-	margin: 10px 20px;
+	margin: 0 0 40px 35px;
+    line-height: 22px;
 }
-.offre>.informations>.prix{
-    margin-bottom: 10px;
+.offre>.informations>.prix, .offre-detail>.informations>.prix{
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 18px;
+    color: var(--main-color-blue-light);
+}
+.offre>.informations>div + p{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.offre-container.disliked{
+    display: none;
 }
 
-.container-flex.detail{
-    margin: 0 45px;
+
+/* OFFRES MASQUEES */
+.container-flex.masquees {
+    flex-direction: column;
 }
-.offreDetail>.image{
+.container-flex.masquees>a:first-child{
+    width: 200px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--main-color-blue);
+    margin-bottom: 20px;
+    transition: all 100ms linear;
+}
+.container-flex.masquees>a:first-child:hover{
+    color: var(--main-color-blue-light);
+    transform: translateX(3px);
+}
+.container-flex.masquees>a:first-child>i{
+    margin-right: 6px;
+}
+
+/* LIKES - DISLIKES*/
+.likes-container{
+    width: 75px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+.likes-container.interet{
+    display: block;
+    width: 30px;
+
+}
+.likes-container>a{
+    text-decoration: none;
+    color: #333;
+} 
+.likes-container>a:nth-child(2){
+    margin-left: 12px;
+}
+.likes-container a>i:hover{
+    opacity: .7;
+    transform: scale(1.2);
+}
+.likes-container>a.js-like>i{
+    font-size: 25px;
+    color: #e40050;
+}
+.likes-container>a{
     position: relative;
 }
-.offreDetail>.image>span{
-    position: absolute;
+.likes-container>a.js-dislike>i{
+    font-size: 31px;
 }
-.offreDetail>.informations{
+.likes-container>a span{
+    width: 190px;
+    height: 34px;
+    text-align: center;
+    font-size: 14px;
+    visibility: hidden;
+    position: absolute;
+    bottom: 30px;
+    right: 22px;
+    padding: 10px 15px;
+    border-radius: 20px 20px 0 20px;
+    background: var(--main-color-blue-light);
+    color: #fff;
+    font-weight: 700;
+    transition: visibility .3s linear, opacity .3s linear;
+    opacity: 0;
+}
+.likes-container>a:hover span{
+    visibility: visible;
+    opacity: .95;
+}
+.likes-container>a span.delete{
+    width: 215px;
+}
+
+
+/* Détail d'une offre */
+.container-flex.detail{
+    align-items: center;
+}
+.offre-detail{
+    flex-direction: column;
+}
+.offre-detail>.image{
+    display: flex;
+}
+.offre-detail>.image>img{
+    width: 90%;
+    margin: 0 auto;
+}
+.offre-detail>.informations{
     margin: 20px 0;
 }
+.offre-detail>.informations>.prix{
+    justify-content: flex-end;
+}
+.offre-detail>.informations>.prix>p{
+
+}
 
 
-.container-flex.profile{
+
+
+/* PROFIL */
+.container-flex.interet{
+    flex-wrap: nowrap;
+}
+.container-flex.interet>hr{
+    width: 2px;
+    background: #ccc;
+    margin: 15px 15px;
+}
+.left-menu.interet{
+    min-width: 300px;
+    height: 100%;
+    margin: 10px;
+    padding: 25px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    line-height: 20px;
+
+}
+.left-menu.interet>div:first-child{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.left-menu.interet>div:first-child>img{
+    margin-bottom: 15px;
+}
+.liens.interet{
+    display: flex;
     flex-direction: column;
+    margin-top: 25px;
+}
+.liens.interet>a{
+    line-height: 25px;
+    color:#333;
+    text-decoration: none;
+    font-weight: 700;
+}
+.liens.interet>a::before{
+    content:'>';
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 7px;
+}
+
+
+.offre-container.interet{
+    width: 340px;
+    height: 350px;
+    margin: 10px;
+}
+.offre.interet{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.offre.interet>.informations{
+    margin: 20px 32px 0;
+}    
+.offre.interet>.informations>.prix{
+    margin-bottom: 14px;
+}
+.offre.interet>.image>img{
+    width: 290px;
+    height: 200px;
+    border-radius: 15px 0 0 0;
+}
+.right-menu.interet{
+    display: flex;
+    flex-wrap: wrap;
+}
+.right-menu.interet>div:first-child{
+    width: 100%;
+    margin: 25px 15px 5px;
+}
+
+
+
+/* RECHERCHE */
+.search-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+	margin: 20px 0;
+	padding: 20px;
+	background:var(--main-color-blue-light);
+	border: 2px solid var(--main-color-gray);
+	border-radius: var(--card-border-radius);
+    box-shadow: var(--card-box-shadow);
+}
+.search-form>div{
+    min-height: 40px;
+}
+.search-form>div input{
+    font-size: 16px;
+    border: 2px solid var(--main-color-gray);
+}
+.search-inputs{
+    display: flex;
+}
+.search-inputs div>input{
+    width: 100%;
+    padding: 11px 30px 11px 15px;
+	border-radius: 10px;
+}
+.search-inputs>div{
+    padding: 12px;
+}
+
+.search-inputs>div{
+    width: 100%;
+    position: relative;
+}
+.search-inputs>div::after{
+    position: absolute;
+    font-weight: 700;
+}
+.search-inputs.price>div::after{
+    content: "€";
+    top: 23px;
+    right: 27px;
+    font-size: 20px;
+}
+.search-inputs.superficie>div::after{
+    content: "m²";
+    top: 24px;
+    right: 22px;
+    font-size: 17px;
+}
+.search-type{
+    margin: 5px 0 15px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.search-type>div{
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+}
+.search-type>div>input{
+    width: 20px;
+    height: 20px;
+    accent-color: var(--main-color-gray);
+    margin-right: 8px;
+}
+.search-button{
+    display: flex;
+    justify-content: center;
+}
+.search-button>input{
+	padding: 12px 20px;
+	border-radius: var(--card-border-radius);
+	text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s ease-in;
+    box-shadow: var(--card-box-shadow);
+}
+.search-button>input:hover{
+    background: var(--main-color-gray);
+    box-shadow: var(--card-box-shadow);
+}
+
+@media only screen and (max-width:768px) {
+    .search-form{
+        width: 100%;
+    }
+    .search-inputs>input{
+        margin: 8px 0;
+    }
+}
+
+@media only screen and (max-width:380px) {
+    .nav-laptop{
+        display:none;
+    }
+    .search-inputs{
+		flex-direction: column;
+	}
+	.search-type{
+        flex-direction: column;
+        align-items: flex-start;
+	}
+    .search-type>div{
+        margin-top: 8px;
+    }
+}
+
+
+/* MAP LEAFLET */
+#map{
+    width: 100%;
+    max-width: 770px;
+    height: 450px;
+    margin: 0 auto;
+    border: 6px solid var(--main-color-blue-light);
+    border-radius: 10px;
+    box-shadow: var(--card-box-shadow);
+}
+
+
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 20px;
+    padding: 5px 8px;
+}
+
+.custom-popup .leaflet-popup-close-button {
+    display: none; 
+}
+.custom-popup .leaflet-popup-content {
+    margin: 10px 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+.custom-popup .leaflet-popup-content h3{
+    color: var(--main-color-blue-light);
+}
+.custom-popup .leaflet-popup-content p{
+    margin: 0;
 }

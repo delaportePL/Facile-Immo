@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Offre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,7 +18,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OffreRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(
+        ManagerRegistry $registry)
     {
         parent::__construct($registry, Offre::class);
     }
@@ -41,41 +44,50 @@ class OffreRepository extends ServiceEntityRepository
 
     public function findAll()
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = '
-            SELECT * FROM offre';
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery();
+        $qb = $this->createQueryBuilder('o');
 
-        return $result->fetchAllAssociative();
+        return $qb->getQuery()->getResult();
     }
 
 
-    public function findLikedOffresByUserIdAndType(int $userId, int $type)
+    public function getQueryWithSearch(SearchData $search, array $dislikedOfferIds)
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = '
-            SELECT * FROM offre o
-            JOIN liked_offre lo ON lo.offre_id = o.id
-            WHERE lo.user_id = :userId
-            AND lo.type = :type';
+        $qb = $this->createQueryBuilder('o');
 
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery(['userId' => $userId, 'type' => $type]);
-        return $result->fetchAllAssociative();
-    }
+        //Si le tableau d'id d'offres masquées n'est pas vide, le queryBuilder ne sélectionnera pas les offres correpsondants à ces id
+        if(!empty($dislikedOfferIds)){
+            $qb = $qb
+                ->andWhere($qb->expr()->notIn('o.id', $dislikedOfferIds));
+        }
 
+        if(!empty($search->surfaceMin)){
+            $qb = $qb
+                ->andWhere('o.surface >= :surfaceMin')
+                ->setParameter('surfaceMin', $search->surfaceMin);
+        }
+        if(!empty($search->surfaceMax)){
+            $qb = $qb
+                ->andWhere('o.prix >= :surfaceMax')
+                ->setParameter('surfaceMax', $search->surfaceMax);
+        }
 
-    public function findAllOffersByUserId(int $userId)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = '
-            SELECT o.*, lo.user_id, lo.type as liked_offre_type FROM offre o 
-            LEFT JOIN liked_offre lo ON lo.offre_id = o.id
-            WHERE lo.user_id = :userId OR lo.user_id IS NULL';
+        if(!empty($search->prixMin)){
+            $qb = $qb
+                ->andWhere('o.prix >= :prixMin')
+                ->setParameter('prixMin', $search->prixMin);
+        }
+        if(!empty($search->prixMax)){
+            $qb = $qb
+                ->andWhere('o.prix <= :prixMax')
+                ->setParameter('prixMax', $search->prixMax);
+        }
 
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery(['userId' => $userId]);
-        return $result->fetchAllAssociative();
+        if(!empty($search->type)){
+            $qb = $qb
+                ->andWhere('o.type IN (:type)')
+                ->setParameter('type',$search->type);
+        }
+
+        return $qb;
     }
 }

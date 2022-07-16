@@ -1,0 +1,14 @@
+{% if app.user %}
+	{% if app.request.attributes.get('_route') == 'profil' %}
+		<a href="{{ path('offre.like', {'id': offre.id }) }}" class="js-dislike">
+			<i class="fa-solid fa-xmark"></i>
+			<span class="delete">Ne plus aimer cette offre</span>
+		</a>
+	
+	{% elseif app.request.attributes.get('_route') == 'profil.offre.masquee' %}
+		<a href="{{ path('offre.dislike', {'id': offre.id }) }}" class="js-dislike">
+			<i class="fa-solid fa-xmark"></i>
+			<span class="delete">Ne plus masquer cette offre</span>
+		</a>
+	{% endif %}
+{% endif %}

@@ -19,6 +19,6 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
-        return new RedirectResponse($this->urlGenerator->generate('offre.liste'));
+        return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 }

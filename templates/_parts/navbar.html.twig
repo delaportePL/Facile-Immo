@@ -1,11 +1,13 @@
 <nav>
+<div>
 	<div class="nav-left">
-		<img src={{ asset('img/logo.png') }} width="65" height="65" alt="Logo Facile Immo">
+		<a href="{{ path('recherche') }}"><img src={{ asset('img/logo.png') }} width="65" height="65" alt="Logo Facile Immo"></a>
 	</div>
 	<div class="nav-center">
-		<a href="{{ path('offre.liste') }}">Accueil</a>
-		<a href="/recherche">Recherche</a>
-		<a href="/acheter">Comment acheter ?</a>
+		<a href="{{ path('home') }}">Accueil</a>
+		<a href="{{ path('recherche') }}">Comment acheter ?</a>
+	</div>
+	<div class="nav-right">
 		{% if app.user %}
 			<a href="{{ path('profil') }}">Profil</a>
 
@@ -15,4 +17,5 @@
 			<a href="{{ path('inscription') }}">S'enregistrer</a>
 		{% endif %}
 	</div>
+</div>
 </nav>

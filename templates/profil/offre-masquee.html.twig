@@ -3,10 +3,20 @@
 {% block title %}Offres masquées{% endblock %}
 
 {% block content %}
-<div class="container-flex">
-	<h1>Offres masquées</h1>
-	{% for offer in offresMasquees %}
-        {% include('_parts/offer.html.twig') %}
+<div class="container-flex masquees">
+    <a href="{{ path('profil') }}"><i class="fa-solid fa-circle-arrow-left"></i>Retour au profil</a>
+	<h2>Vos offres masquées</h2>
+	{% for offre in dislikedOffers %}
+        <div class="offre-container">
+            <a class="offre" href="{{ path('offre.detail', { 'id': offre.id }) }}">
+                {% include('_parts/offre-profil.html.twig') %}
+            </a>
+            {% if app.user %}
+            <div class="likes-container interet">
+                {% include "_parts/delete-likes.html.twig" %}
+            </div>
+            {% endif %}
+        </div>
     {% endfor %}
 </div>
 

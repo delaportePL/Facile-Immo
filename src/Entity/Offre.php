@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OffreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OffreRepository::class)]
@@ -38,16 +40,7 @@ class Offre
     private $salleDeBain;
 
     #[ORM\Column(type: 'smallint')]
-    private $toilette;
-
-    #[ORM\Column(type: 'smallint')]
     private $terrain;
-
-    #[ORM\Column(type: 'integer')]
-    private $terrasse;
-
-    #[ORM\Column(type: 'integer')]
-    private $balcon;
 
     #[ORM\Column(type: 'boolean')]
     private $garage;
@@ -57,6 +50,24 @@ class Offre
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $description;
+
+    #[ORM\OneToMany(mappedBy: 'offre', targetEntity: OffreLike::class, orphanRemoval: true)]
+    private $likes;
+
+    #[ORM\OneToMany(mappedBy: 'offre', targetEntity: OffreDislike::class, orphanRemoval: true)]
+    private $dislikes;
+
+    #[ORM\Column(type: 'float')]
+    private $latitude;
+
+    #[ORM\Column(type: 'float')]
+    private $longitude;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+        $this->dislikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,42 +194,6 @@ class Offre
         return $this;
     }
 
-    public function getToilette(): ?int
-    {
-        return $this->toilette;
-    }
-
-    public function setToilette(int $toilette): self
-    {
-        $this->toilette = $toilette;
-
-        return $this;
-    }
-
-    public function getTerrasse(): ?int
-    {
-        return $this->terrasse;
-    }
-
-    public function setTerrasse(int $terrasse): self
-    {
-        $this->terrasse = $terrasse;
-
-        return $this;
-    }
-
-    public function getBalcon(): ?int
-    {
-        return $this->balcon;
-    }
-
-    public function setBalcon(int $balcon): self
-    {
-        $this->balcon = $balcon;
-
-        return $this;
-    }
-
     public function getGarage(): ?bool
     {
         return $this->garage;
@@ -239,6 +214,110 @@ class Offre
     public function setCave(bool $cave): self
     {
         $this->cave = $cave;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OffreLike>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(OffreLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(OffreLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getOffre() === $this) {
+                $like->setOffre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OffreDislike>
+     */
+    public function getDislikes(): Collection
+    {
+        return $this->dislikes;
+    }
+
+    public function addDislike(OffreDislike $dislike): self
+    {
+        if (!$this->dislikes->contains($dislike)) {
+            $this->dislikes[] = $dislike;
+            $dislike->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDislike(OffreDislike $dislike): self
+    {
+        if ($this->dislikes->removeElement($dislike)) {
+            // set the owning side to null (unless already changed)
+            if ($dislike->getOffre() === $this) {
+                $dislike->setOffre(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function isLikedByUser(User $user) : bool 
+    {
+        foreach($this->likes as $like){
+            if($like->getUser() === $user) return true;
+        }
+
+        return false;
+    }
+
+    public function isDislikedByUser(User $user) : bool 
+    {
+        foreach($this->dislikes as $dislike){
+            if($dislike->getUser() === $user) return true;
+        }
+
+        return false;
+
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }
