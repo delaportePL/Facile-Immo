@@ -3,25 +3,15 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-<form class="search-form" action="">
-	<div class="search-inputs">
-		<input type="text" placeholder="Ville recherchée">
-		<input type="text" placeholder="Budget max">
-	</div>
-	<div class="search-type">
-		<div>
-			<input type="checkbox" name="appartement" checked>
-			<label for="appartement">Appartement</label>
-		</div>
-		<div>
-			<input type="checkbox" name="maison" checked>
-			<label for="maison">Maison</label>
-		</div>
-	</div>
-	<div class="search-button">
-		<input type="submit" value="Rechercher">
-	</div>
-	
-</form>
-
+<div class="container-flex home">
+    <h2>Vous souhaitez effectuer votre première <span>recherche ?<span></h2>
+    <h3>Accéder à notre outil de recherche ci-dessous</h3>
+    <div class="image-home">
+        <img src="{{ asset('img/outil-recherche.png') }}" alt="Screenshot de l'outil de recherche">
+        <a href="{{ path('recherche') }}" class="link-to right">
+            Outil de recherche de biens immobiliers
+            <i class="fa-solid fa-circle-arrow-right"></i>
+        </a>
+    </div>
+</div>
 {% endblock %}

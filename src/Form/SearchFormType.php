@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Data\SearchData;
+use App\Entity\Localisation;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,12 +17,12 @@ class SearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('localisation', TextType::class, [
+            ->add('localisation', EntityType::class, [
+                'class' => Localisation::class,
+                'choice_label' => 'nom',
                 'label' => false,
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Localisation'
-                ]
+                'placeholder' => 'Choisissez une localisation'
             ])
             ->add('superficieMin', NumberType::class, [
                 'label' => false,

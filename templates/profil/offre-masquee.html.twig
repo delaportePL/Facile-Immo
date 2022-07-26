@@ -4,15 +4,17 @@
 
 {% block content %}
 <div class="container-flex masquees">
-    <a href="{{ path('profil') }}"><i class="fa-solid fa-circle-arrow-left"></i>Retour au profil</a>
+    <a href="{{ path('profil') }}" class="link-to left"><i class="fa-solid fa-circle-arrow-left"></i>Retour au profil</a>
 	<h2>Vos offres masquées</h2>
 	{% for offre in dislikedOffers %}
-        <div class="offre-container">
+        <div class="offre-container dislike">
+            {% include "_parts/offre-carousel.html.twig" %}
+
             <a class="offre" href="{{ path('offre.detail', { 'id': offre.id }) }}">
-                {% include('_parts/offre-profil.html.twig') %}
+                {% include "_parts/offre-informations.html.twig" %}
             </a>
             {% if app.user %}
-            <div class="likes-container interet">
+            <div class="likes-container delete">
                 {% include "_parts/delete-likes.html.twig" %}
             </div>
             {% endif %}

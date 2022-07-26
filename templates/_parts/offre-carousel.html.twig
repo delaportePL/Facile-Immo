@@ -1,0 +1,16 @@
+<div class="carousel" data-carousel>
+	<i class="fa-solid fa-circle-arrow-left prev" data-carousel-arrow="prev"></i>
+	<i class="fa-solid fa-circle-arrow-right next" data-carousel-arrow="next"></i>
+	<ul data-slides>
+		</li>
+		{% for image in offre.images %}
+			{% if loop.first %}
+				<li class="slide" data-active>
+			{% else %}
+				<li class="slide">	
+			{% endif %}
+				<img src="{{ asset('img/bien-immobilier/' ~ image.chemin) }}" alt="Photographie du logement">
+			</li>
+		{% endfor %}
+	</ul>
+</div>

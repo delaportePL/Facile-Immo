@@ -53,6 +53,10 @@ class OffreRepository extends ServiceEntityRepository
     public function getQueryWithSearch(SearchData $search, array $dislikedOfferIds)
     {
         $qb = $this->createQueryBuilder('o');
+        $qb 
+            ->join('o.localisation', 'loc')
+            ->leftJoin('o.images', 'img')
+            ->groupBy('o.id');
 
         //Si le tableau d'id d'offres masquées n'est pas vide, le queryBuilder ne sélectionnera pas les offres correpsondants à ces id
         if(!empty($dislikedOfferIds)){
@@ -60,15 +64,21 @@ class OffreRepository extends ServiceEntityRepository
                 ->andWhere($qb->expr()->notIn('o.id', $dislikedOfferIds));
         }
 
-        if(!empty($search->surfaceMin)){
+        if(!empty($search->localisation)){
             $qb = $qb
-                ->andWhere('o.surface >= :surfaceMin')
-                ->setParameter('surfaceMin', $search->surfaceMin);
+                ->andWhere('o.localisation = :localisation')
+                ->setParameter('localisation', $search->localisation);
         }
-        if(!empty($search->surfaceMax)){
+
+        if(!empty($search->superficieMin)){
             $qb = $qb
-                ->andWhere('o.prix >= :surfaceMax')
-                ->setParameter('surfaceMax', $search->surfaceMax);
+                ->andWhere('o.superficie >= :superficieMin')
+                ->setParameter('superficieMin', $search->superficieMin);
+        }
+        if(!empty($search->superficieMax)){
+            $qb = $qb
+                ->andWhere('o.superficie <= :superficieMax')
+                ->setParameter('superficieMax', $search->superficieMax);
         }
 
         if(!empty($search->prixMin)){

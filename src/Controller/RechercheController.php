@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class RechercheController extends AbstractController
 {
     public function __construct(
@@ -40,10 +41,11 @@ class RechercheController extends AbstractController
         $form = $this->createForm(SearchFormType::class, $data);
         $form->handleRequest($request);
 
-        $qb = $this->offreRepository->getQueryWithSearch($data, $dislikedOfferIds);
-        $paginationQB = $qb;
-        $offers = $qb->getQuery()->getArrayResult();
-        
+        $paginationQB = $qb = $this->offreRepository->getQueryWithSearch($data, $dislikedOfferIds);
+
+        $offers = $qb->getQuery()->getResult();
+        $jsonOffers = json_encode($qb->getQuery()->getArrayResult());
+
         /*Ici on ajoute la pagination avec le paramètre 'page' récupéré dans l'url avec la méthode request->get() 
         Le deuxième paramètre de get est sa valeur par défaut */
         $pagination = $paginator->paginate(
@@ -51,11 +53,12 @@ class RechercheController extends AbstractController
             $request->get('page', 1),
             5
         );
-
+        // dump($offers);
         return $this->render('recherche/index.html.twig', [
             'form' => $form->createView(),
             'pagination' => $pagination,
-            'offers' => json_encode($offers),
+            'offers' => $offers,
+            'jsonOffers' => $jsonOffers,
         ]);
 
     }

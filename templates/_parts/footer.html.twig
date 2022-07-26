@@ -1,0 +1,21 @@
+<footer>
+<div>
+
+	<ul>
+		<li>Pages principales</li>
+		<li><a href="{{ path('home') }}">Accueil</a></li>
+		<li><a href="{{ path('recherche') }}">Recherche</a></li>
+		<li><a href="{{ path('acheter') }}">Comment acheter ?</a></li>
+	</ul>
+	<ul>
+		<li>Pages connexion</li>
+		{% if app.user %}
+			<li><a href="{{ path('profil') }}">Profil</a></li>
+			<li><a href="{{ path('logout') }}">Déconnexion</a></li>
+		{% else %}
+			<li><a href="{{ path('login') }}">Connexion</a></li>
+			<li><a href="{{ path('inscription') }}">S'enregistrer</a></li>
+		{% endif %}
+	</ul>
+</div>
+</footer>

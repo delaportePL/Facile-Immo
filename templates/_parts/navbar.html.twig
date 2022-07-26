@@ -1,16 +1,22 @@
 <nav>
 <div>
+	<input type="checkbox" id="check">
+	<label for="check" class="check-btn">
+		<i class="fa-solid fa-bars"></i>
+		<i class="fa-solid fa-xmark"></i>
+	</label>
+
 	<div class="nav-left">
-		<a href="{{ path('recherche') }}"><img src={{ asset('img/logo.png') }} width="65" height="65" alt="Logo Facile Immo"></a>
+		<a href="{{ path('home') }}">
+			<img src={{ asset('img/logo.png') }} width="65" height="65" alt="Logo Facile Immo">
+		</a>
 	</div>
 	<div class="nav-center">
 		<a href="{{ path('home') }}">Accueil</a>
-		<a href="{{ path('recherche') }}">Comment acheter ?</a>
-	</div>
-	<div class="nav-right">
+		<a href="{{ path('recherche') }}">Recherche</a>
+		<a href="{{ path('acheter') }}">Comment acheter ?</a>
 		{% if app.user %}
 			<a href="{{ path('profil') }}">Profil</a>
-
 			<a href="{{ path('logout') }}">Déconnexion</a>
 		{% else %}
 			<a href="{{ path('login') }}">Connexion</a>

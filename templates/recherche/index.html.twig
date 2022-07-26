@@ -9,34 +9,45 @@
 {% block content %}
 <div class="container-flex offre">
     {% include "_parts/filtres.html.twig" %}
-    <div id="map"></div>
     
-    {% for offre in pagination %}
-        {% if app.user and offre.isDislikedByUser(app.user) %}
-        {% else %}
-            <div class="offre-container">
-                <a class="offre" href="{{ path('offre.detail', {'id' : offre.id }) }}">
-                    {% include "_parts/offre.html.twig" %}
-                </a>
-                {% if app.user %}
-                <div class="likes-container">
-                    {% include "_parts/likes-buttons.html.twig" %}
-                </div>
-                {% endif %}
-            </div>
-        {% endif %}
-    {% endfor %}
+    {% if offers is empty %}
+        <div class="no-result">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <h2>Pas de biens disponibles avec ces critères.<h2>
+        </div>
+    {% else %}
+        <h2>{{ offers|length }} biens disponibles avec ces critères.</h2>
+        <div id="map"></div>
+        {% for offre in pagination %}
+            {% if app.user and offre.isDislikedByUser(app.user) %}
+            {% else %}
+                <div class="offre-container">
+                    {% include "_parts/offre-carousel.html.twig" %}
 
-    <div>
+                    <a class="offre" href="{{ path('offre.detail', { 'id': offre.id }) }}">
+                        {% include "_parts/offre-informations.html.twig" %}
+                    </a>
+                    {% if app.user %}
+                        <div class="likes-container">
+                            {% include "_parts/likes-buttons.html.twig" %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
         {{ knp_pagination_render(pagination) }}
-    </div>
+
+    {% endif %}
+
+    
 
 </div>
 {% endblock %}
 
 {% block javascripts %}
     <script>
-        let offers = {{ offers|raw }};
+        let offers = {{ jsonOffers|raw }};
     </script>
     <script src="{{ asset('leaflet/leaflet.js') }}"></script>
     <script src="{{ asset('js/map.js') }}"></script>

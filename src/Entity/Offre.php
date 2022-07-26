@@ -36,12 +36,6 @@ class Offre
     #[ORM\Column(type: 'smallint')]
     private $chambre;
 
-    #[ORM\Column(type: 'smallint')]
-    private $salleDeBain;
-
-    #[ORM\Column(type: 'smallint')]
-    private $terrain;
-
     #[ORM\Column(type: 'boolean')]
     private $garage;
 
@@ -63,10 +57,17 @@ class Offre
     #[ORM\Column(type: 'float')]
     private $longitude;
 
+    #[ORM\ManyToMany(targetEntity: Image::class, fetch: 'EAGER')]
+    private $images;
+
+    #[ORM\ManyToOne(targetEntity: Localisation::class)]
+    private $localisation;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
         $this->dislikes = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,18 +159,6 @@ class Offre
         return $this;
     }
 
-    public function getTerrain(): ?int
-    {
-        return $this->terrain;
-    }
-
-    public function setTerrain(int $terrain): self
-    {
-        $this->terrain = $terrain;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -178,18 +167,6 @@ class Offre
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getSalleDeBain(): ?int
-    {
-        return $this->salleDeBain;
-    }
-
-    public function setSalleDeBain(int $salleDeBain): self
-    {
-        $this->salleDeBain = $salleDeBain;
 
         return $this;
     }
@@ -318,6 +295,42 @@ class Offre
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisation
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(?Localisation $localisation): self
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }

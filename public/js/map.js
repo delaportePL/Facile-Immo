@@ -41,17 +41,15 @@ offers.forEach(offer => {
 
         let pricePopup = `
             <h3>${offer.prix.toLocaleString('fr-FR')} €</h3>
-            <p>${offer.type}</p>
+            <div>
+                <a href="/offre-${offer.id}">
+                    <i class="fa-solid fa-circle-arrow-right"></i>
+                    Voir détail
+                </a>
+            <div>
         `;
         
         marker.bindPopup(pricePopup, customOptions);
-        
-        marker.on('mouseover', function (e) {
-            this.openPopup();
-        });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
     }
 });
 

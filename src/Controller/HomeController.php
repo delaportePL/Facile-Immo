@@ -26,11 +26,15 @@ class HomeController extends AbstractController
          */
         $user = $this->getUser();
 
-        $data = new SearchData();
-
         return $this->render('home/index.html.twig', [
             'user' => $user
         ]);
+    }
+
+    #[Route('/comment-acheter', name: 'acheter')]
+    public function acheter(): Response
+    {
+        return $this->render('acheter/index.html.twig');
     }
 
 }
