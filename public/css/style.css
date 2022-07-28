@@ -330,7 +330,7 @@ footer ul>li>a:hover{
 	margin: 25px 0 40px 35px;
     line-height: 22px;
 }
-.offre>.informations>.prix, .offre-detail>.informations>.prix{
+.offre>.informations>.prix{
     font-size: 26px;
     font-weight: 900;
     margin-bottom: 18px;
@@ -656,30 +656,42 @@ footer ul>li>a:hover{
 
 /* Détail d'une offre */
 .container-flex.detail{
-    width: 700px;
+    width: 100%;
     align-items: center;
 }
 .offre-detail{
     flex-direction: column;
     align-items: flex-start;
+    background: #fff;
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--card-border-radius);
 }
 .offre-detail>.informations{
     width: 100%;
-    margin: 20px 0;
+    padding: 30px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    line-height: 22px;
 }
-.offre-detail>.informations>div{
-    margin: 0 25px;
+.offre-detail .informations-autre>p:first-child{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
-.offre-detail>.description{
-    margin-left: 25px;
+.offre-detail .informations-autre>p:nth-child(n+2){
+    margin-left: 12px;
+}
+.offre-detail>.informations>.prix{
+    font-size: 30px;
+    font-weight: 900;
+    padding: 0 20px;
+    color: var(--main-color-blue-light);
 }
 .offre-detail>.carousel{
-    width: 100%;
+    width: calc(100% - 10px);
     height: 440px;
-    box-shadow: var(--card-box-shadow);
-    border-radius: var(--card-border-radius);
+    border-radius: 16px 16px 0 0;
 }
 .offre-detail>.carousel>i{
     font-size: 45px;
@@ -687,10 +699,26 @@ footer ul>li>a:hover{
 .offre-detail .slide>img{
     width: 100%;
     height: 440px;
-    border-radius: var(--card-border-radius);
+    border-radius: 16px 16px 0 0;
 }
-
-
+.offre-detail .description{
+    padding: 0 30px 20px;
+    line-height: 22px;
+    text-align: justify;
+}
+.offre-detail .description>h3{
+    margin-bottom: 12px;
+    position: relative;
+}
+.offre-detail .description>h3::before{
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    background: var(--main-color-blue-light);
+}
 
 /* RECHERCHE */
 .search-form{
@@ -820,7 +848,7 @@ footer ul>li>a:hover{
 /* MAP LEAFLET */
 #map{
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     height: 470px;
     margin: 0 auto 20px;
     border: 6px solid var(--main-color-blue-light);
@@ -999,4 +1027,30 @@ m-popup .leaflet-popup-content div>a>i{
 	padding: 10px;
 }
 
-/* Register */
+
+/* Acheter */
+.container-flex.acheter>div{
+    background: #fff;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-box-shadow);
+    margin: 10px 0;
+    padding: 30px 50px;
+    text-align: justify;
+    font-size: 18px;
+}
+.container-flex.acheter>div:first-child{
+    font-size: 20px;
+    font-weight: 700;
+}
+.container-flex.acheter>div>h2{
+    margin-bottom: 18px;
+}
+.container-flex.acheter>div>p{
+    margin: 10px 0;
+}
+.container-flex.acheter>div>ul{
+    margin: 0 30px;
+}
+.container-flex.acheter>div>.image{
+    margin: 15px 0;
+}

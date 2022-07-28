@@ -6,6 +6,7 @@ use App\Repository\OffreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: OffreRepository::class)]
 class Offre
@@ -18,28 +19,25 @@ class Offre
     #[ORM\Column(type: 'integer')]
     private $prix;
 
-    #[ORM\Column(type: 'string', length: 50)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $type;
 
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $superficie;
 
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $etage;
 
-    #[ORM\Column(type: 'smallint')]
-    private $etageTotal;
-
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $piece;
 
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(type: 'smallint', nullable: true)]
     private $chambre;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $garage;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $cave;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -51,14 +49,11 @@ class Offre
     #[ORM\OneToMany(mappedBy: 'offre', targetEntity: OffreDislike::class, orphanRemoval: true)]
     private $dislikes;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $latitude;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
-
-    #[ORM\ManyToMany(targetEntity: Image::class, fetch: 'EAGER')]
-    private $images;
 
     #[ORM\ManyToOne(targetEntity: Localisation::class)]
     private $localisation;
@@ -67,7 +62,6 @@ class Offre
     {
         $this->likes = new ArrayCollection();
         $this->dislikes = new ArrayCollection();
-        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,18 +101,6 @@ class Offre
     public function setEtage(int $etage): self
     {
         $this->etage = $etage;
-
-        return $this;
-    }
-
-    public function getEtageTotal(): ?int
-    {
-        return $this->etageTotal;
-    }
-
-    public function setEtageTotal(int $etageTotal): self
-    {
-        $this->etageTotal = $etageTotal;
 
         return $this;
     }
@@ -299,30 +281,6 @@ class Offre
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        $this->images->removeElement($image);
-
-        return $this;
-    }
-
     public function getLocalisation(): ?Localisation
     {
         return $this->localisation;
@@ -334,4 +292,5 @@ class Offre
 
         return $this;
     }
+
 }

@@ -55,7 +55,6 @@ class OffreRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('o');
         $qb 
             ->join('o.localisation', 'loc')
-            ->leftJoin('o.images', 'img')
             ->groupBy('o.id');
 
         //Si le tableau d'id d'offres masquées n'est pas vide, le queryBuilder ne sélectionnera pas les offres correpsondants à ces id

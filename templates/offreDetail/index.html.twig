@@ -7,24 +7,23 @@
 	<div class="offre-detail">
 
 		{% include "_parts/offre-carousel.html.twig" %}
-		
+
+		{% set nonCom = "Non communiqué" %}
 		<div class="informations">
-			<div class="prix">
-				<p>{{offre.prix|number_format(0, '', ' ')}} €</p>
-			</div>
 			<div class="informations-autre">
 				<p>{{offre.type|capitalize}}</p>
 				<p>{{offre.localisation.nom}}</p>
-				{% if offre.etageTotal > 0 %}
-					<p>Étage {{offre.etage}}/{{offre.etageTotal}}</p>
-				{% else %}
-					<p>{{offre.etage}} étage{{offre.etage > 1 ? 's' : ''}}</p>
+				<p>Étage : {{offre.etage ? offre.etage : nonCom}}</p>
+				{% if offre.piece and offre.chambre %}
+					<p>{{offre.piece}} pièce{{offre.piece > 1 ? 's' :''}}, 
+					{{offre.chambre}} chambre{{offre.chambre > 1 ? 's' :''}}</p>
 				{% endif %}
-				<p>
-					{{offre.piece}} pièce{{offre.piece > 1 ? 's' :''}}, 
-					{{offre.chambre}} chambre{{offre.chambre > 1 ? 's' :''}} 
-				</p>
 				<p>Superficie : {{offre.superficie}}m²</p>
+				<p>Garage : {{offre.garage ? "Oui" : "Non"}}</p>
+				<p>Cave : {{offre.cave ? "Oui" : "Non"}}</p>
+			</div>
+			<div class="prix">
+				<p>{{offre.prix|number_format(0, '', ' ')}} €</p>
 			</div>			
 		</div>
 		<div class="description">

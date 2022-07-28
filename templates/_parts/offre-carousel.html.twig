@@ -1,16 +1,16 @@
 <div class="carousel" data-carousel>
 	<i class="fa-solid fa-circle-arrow-left prev" data-carousel-arrow="prev"></i>
 	<i class="fa-solid fa-circle-arrow-right next" data-carousel-arrow="next"></i>
+	{# <img src="data:image/jpeg;base64,{{ image }}" alt="Photographie du logement"> #}
 	<ul data-slides>
+		<li class="slide" data-active>
+			<img src="{{ asset('img/img-biens-immobiliers/') ~ offre.id ~ "/image1.jpg" }}" alt="Photographie du logement">
 		</li>
-		{% for image in offre.images %}
-			{% if loop.first %}
-				<li class="slide" data-active>
-			{% else %}
-				<li class="slide">	
-			{% endif %}
-				<img src="{{ asset('img/bien-immobilier/' ~ image.chemin) }}" alt="Photographie du logement">
-			</li>
-		{% endfor %}
+		<li class="slide">
+			<img src="{{ asset('img/img-biens-immobiliers/') ~ offre.id ~ "/image2.jpg" }}" alt="Photographie du logement">
+		</li>
+		<li class="slide">
+			<img src="{{ asset('img/img-biens-immobiliers/') ~ offre.id ~ "/image3.jpg" }}" alt="Photographie du logement">
+		</li>
 	</ul>
 </div>

@@ -40,7 +40,7 @@ class OffreController extends AbstractController
         $offre = $this->offreRepository->find($id);
 
         return $this->render('offreDetail/index.html.twig', [
-            'offre' => $offre,
+            'offre' => $offre
         ]);
     }
 

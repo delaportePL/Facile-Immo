@@ -17,7 +17,6 @@
                 <p>Téléphone : <b>{{ user.telephone }}</b></p>
             </div>
             <div class="liens interet">
-                <a href="#">Modifier vos informations</a>
                 <a href="{{ path('profil.offre.masquee') }}">Vos offres masquées</a>
             </div>
         </div>
@@ -30,7 +29,7 @@
     {% if likedOffers is empty %}
         <div class="no-result">
             <i class="fa-solid fa-circle-exclamation"></i>
-            <h2>Vous n'avez pas liké de biens pour le moment, cliquez sur le coeur attaché à une offre lors de votre future recherche. Les offres mises en favori seront affichées ici !<h2>
+            <h3>Vous n'avez pas encore liké de biens. <br>Cliquez sur le coeur attaché à une offre pour la mettre en favori et l'afficher ici.</h3>
         </div>
     {% else %}
     {% for offre in likedOffers %}
@@ -49,6 +48,7 @@
 
         </div>
     {% endfor %}
+    {% endif %}
     </div>
     
 </div>
